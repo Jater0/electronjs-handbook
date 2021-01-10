@@ -305,3 +305,101 @@ yellow.html
 ```
 
 ![Remote](./ElectronJsMdPrcture/remote.png)
+
+
+-----
+-----
+
+
+
+## Menu Module
+
+##### How to implement menu
+
+- To write the menu in Electron, we need to first create a template, which is very similar to our JSON or class arrays
+
+- so we need to implement the menu template
+
+``` js
+main/menu.js
+const {Menu, BrowserWindow} = require('electron')
+
+var template = [
+    {
+        label: 'JaterSkill',
+        submenu: [
+            {
+                label: 'Java',
+                accelerator: 'ctrl + n', // implement shortcut
+                click: () => { // make this label clickable
+                    var win = new BrowserWindow({ // jump interface
+                        width: 500,
+                        height: 500, 
+                        webPerferences: {nodeIntegration: true}
+                    })
+                    win.loadFile('java.html')
+                    win.on('close', () => {
+                        win = null
+                    })
+                }
+            },
+            {label: 'JavaScript'}
+        ]
+    }, 
+    {
+        label: 'Sport',
+        submenu: [
+            {label: 'football'},
+            {label: 'basketball'}
+        ]
+    }
+]
+var m = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(m)
+```
+
+- Then open the main process main.js and add the following code directly in the 'ready' to implement the custom menu
+
+``` js
+main.js
+require("./main/menu.js")
+```
+
+- PS: Menu is a module under the main process, so it can only be used in the main process. remember this.
+
+Electron provides built-int menu parameters that can be used to implement the same menu elements as native ones, such as 'undo' and 'redo', which you can view from the official documentation:
+
+https://www.electronjs.org/docs/api/menu#menupopupoptions
+
+##### What different about MacOS
+
+because MacOS is different from Windows and Linux Menu Settings, on MacOS you set Menu as an in-app menu, and the first item in MacOS is the name of the Application.
+
+If you set the custom menu element in the  first item, it will be overwritten
+
+
+
+-----
+
+_____
+
+
+
+## How to implement shortcut
+
+eh, one thing is the shortcut key is native to Electron, it's just bound to a custom label, and I'll learn how to implement a custom shortcut property in the future, okay? 
+
+``` js
+accelerator: 'ctrl + c'
+```
+
+
+
+-----
+
+-----
+
+
+
+## How to implement Right-Click Menu
+

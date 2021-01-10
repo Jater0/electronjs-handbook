@@ -6,6 +6,7 @@ var template = [
         submenu: [
             {
                 label: 'Java',
+                accelerator: 'ctrl + n', // shortcut
                 click: () => {
                     var win = new BrowserWindow({
                         width: 500,
