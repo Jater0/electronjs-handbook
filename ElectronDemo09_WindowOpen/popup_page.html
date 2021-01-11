@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup</title>
+</head>
+<body>
+    <h2>I am Child Page</h2>
+    <button id="popBtn">Post Message to Window</button>
+</body>
+<script>
+    var popBtn = this.document.querySelector('#popBtn')
+    popBtn.onclick = (e) => {
+        window.opener.postMessage('i m the child message')
+    }
+</script>
+</html>
